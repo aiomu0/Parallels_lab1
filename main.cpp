@@ -37,6 +37,13 @@ void displayStudents(const std::vector<Student>& database) {
 }
 
 // 25. Реализуйте функцию, которая подсчитывает сумму всех средних баллов студентов
+void display_allgpa(const std::vector<Student>& database) {
+    double gpa_summary = 0.0;
+    for (const Student& student : database) {
+        gpa_summary += student.gpa;
+    }
+    std::cout << "Суммарный средний балл всех студентов равен " << gpa_summary << "\n";
+}
 
 int main() {
     std::vector<Student> database;
@@ -46,6 +53,7 @@ int main() {
         std::cout << "Меню:\n";
         std::cout << "1. Добавить студента\n";
         std::cout << "2. Вывести список студентов\n";
+        std::cout << "3. Вывести сумму всех средних баллов студентов\n";
         std::cout << "0. Выход\n";
         std::cout << "Выберите действие: ";
         std::cin >> choice;
@@ -56,6 +64,9 @@ int main() {
                 break;
             case 2:
                 displayStudents(database);
+                break;
+            case 3:
+                display_allgpa(database);
                 break;
             case 0:
                 std::cout << "Выход из программы.\n";
