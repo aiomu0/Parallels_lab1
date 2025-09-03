@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 struct Student {
     std::string name;
