@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "gtest/gtest.h"
 
 struct Student {
     std::string name;
@@ -45,7 +46,23 @@ void display_allgpa(const std::vector<Student>& database) {
     std::cout << "Суммарный средний балл всех студентов равен " << gpa_summary << "\n";
 }
 
-int main() {
+// Тест для функции addStudent
+TEST(StudentDatabase, AddStudentTest) {
+    std::vector<Student> database;
+    
+    // Тест 1: Добавление одного студента
+    Student testStudent = {"Иван", 20, "Информатика", 4.5};
+    database.push_back(testStudent);
+    
+    EXPECT_EQ(database.size(), 1);
+    EXPECT_EQ(database[0].name, "Бимбобик");
+    EXPECT_EQ(database[0].age, 1);
+    EXPECT_EQ(database[0].major, "Слеинг");
+    EXPECT_NEAR(database[0].gpa, 2.5, 1e-6);
+}
+
+
+int main(int argc, char **argv) {
     std::vector<Student> database;
 
     int choice;
@@ -75,6 +92,6 @@ int main() {
                 std::cout << "Неверный выбор. Попробуйте снова.\n";
         }
     } while (choice != 0);
-
-    return 0;
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
