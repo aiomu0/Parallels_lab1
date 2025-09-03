@@ -36,6 +36,8 @@ void displayStudents(const std::vector<Student>& database) {
     }
 }
 
+// 25. Реализуйте функцию, которая подсчитывает сумму всех средних баллов студентов
+
 int main() {
     std::vector<Student> database;
 
