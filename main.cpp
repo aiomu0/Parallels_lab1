@@ -51,7 +51,7 @@ TEST(StudentDatabase, AddStudentTest) {
     std::vector<Student> database;
     
     // Тест 1: Добавление одного студента
-    Student testStudent = {"Иван", 20, "Информатика", 4.5};
+    Student testStudent = {"Бимбобик", 1, "Слеинг", 2.5};
     database.push_back(testStudent);
     
     EXPECT_EQ(database.size(), 1);
