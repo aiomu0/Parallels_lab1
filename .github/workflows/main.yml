@@ -20,4 +20,4 @@ jobs:
       run: make all
     
     - name: Execute tests
-      run: make run
+      run: ./program.out --test
