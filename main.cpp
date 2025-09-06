@@ -62,7 +62,7 @@ TEST(StudentDatabase, AddStudentTest) {
 }
 
 
-int main(int argc, char **argv) {
+void runInteractiveMode() {
     std::vector<Student> database;
 
     int choice;
@@ -92,6 +92,16 @@ int main(int argc, char **argv) {
                 std::cout << "Неверный выбор. Попробуйте снова.\n";
         }
     } while (choice != 0);
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+}
+
+int main(int argc, char **argv) {
+    // Если есть аргументы командной строки, запускает тесты
+    if (argc > 1) {
+        ::testing::InitGoogleTest(&argc, argv);
+        return RUN_ALL_TESTS();
+    } else {
+        // Иначе запускает интерактивное меню
+        runInteractiveMode();
+        return 0;
+    }
 }
