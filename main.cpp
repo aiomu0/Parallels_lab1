@@ -49,11 +49,22 @@ void display_allgpa(const std::vector<Student>& database) {
 // Тест для функции addStudent
 TEST(StudentDatabase, AddStudentTest) {
     std::vector<Student> database;
-    
-    // Тест 1: Добавление одного студента
-    Student testStudent = {"Бимбобик", 1, "Слеинг", 2.5};
-    database.push_back(testStudent);
-    
+
+    // Подготовка тестовых данных
+    std::string input = "Бимбобик\n1\nСлеинг\n2.5\n";
+    std::stringstream input_stream(input);
+
+    // Сохраняет старый буфер std::cin и перенаправляет на тестовый ввод
+    std::streambuf* old_cin = std::cin.rdbuf();
+    std::cin.rdbuf(input_stream.rdbuf());
+
+    // Вызывает функцию addStudent
+    addStudent(database);
+
+    // Восстанавливает std::cin
+    std::cin.rdbuf(old_cin);
+
+    // Проверяет результат
     EXPECT_EQ(database.size(), 1);
     EXPECT_EQ(database[0].name, "Бимбобик");
     EXPECT_EQ(database[0].age, 1);
