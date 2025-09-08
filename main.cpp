@@ -64,10 +64,6 @@ TEST(StudentDatabase, AddStudentTest) {
 
     // Восстанавливает std::cin
     std::cin.rdbuf(old_cin);
-
-    for (const auto& student : database) {
-        std::cout << "Добавлен студент: " << student.name << ", возраст: " << student.age << "\n";
-    }
     
     // Проверяет результат
     EXPECT_EQ(database.size(), 1);
