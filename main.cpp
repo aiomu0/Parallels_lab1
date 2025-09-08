@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <gtest/gtest.h>
+#include <sstream>
 
 struct Student {
     std::string name;
@@ -116,6 +117,27 @@ TEST(StudentDatabase, DisplayMultipleStudentsTest) {
     EXPECT_TRUE(output.find("Акакий") != std::string::npos);
     EXPECT_TRUE(output.find("Питинг") != std::string::npos);
     EXPECT_TRUE(output.find("Ядерно-квантовая ржачка") != std::string::npos);
+}
+
+// Тест для функции display_allgpa с несколькими студентами
+TEST(StudentDatabase, CalculateGPASumTest) {
+    std::vector<Student> database = {
+        {"Пивич", 5, "Питинг", 5.0},
+        {"Акакий", 999, "Ядерно-квантовая ржачка", 19.84}
+    };
+    
+    // Перехватывает вывод
+    std::stringstream output_stream;
+    std::streambuf* old_cout = std::cout.rdbuf();
+    std::cout.rdbuf(output_stream.rdbuf());
+    
+    display_allgpa(database);
+    
+    // Восстанавливает std::cout
+    std::cout.rdbuf(old_cout);
+    
+    std::string output = output_stream.str();
+    EXPECT_TRUE(output.find("24.84") != std::string::npos);
 }
 
 // Тест для функции display_allgpa с пустой базой данных
