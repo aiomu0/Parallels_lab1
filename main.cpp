@@ -76,6 +76,66 @@ TEST(StudentDatabase, AddStudentTest) {
     EXPECT_NEAR(database[0].gpa, 2.5, 1e-6);
 }
 
+// Тест для функции displayStudents с пустой базой данных
+TEST(StudentDatabase, DisplayEmptyDatabaseTest) {
+    std::vector<Student> database;
+    
+    // Перехватываем вывод
+    std::stringstream output_stream;
+    std::streambuf* old_cout = std::cout.rdbuf();
+    std::cout.rdbuf(output_stream.rdbuf());
+    
+    displayStudents(database);
+    
+    // Восстанавливаем std::cout
+    std::cout.rdbuf(old_cout);
+    
+    std::string output = output_stream.str();
+    EXPECT_EQ(output, "Список студентов:\n");
+}
+
+// Тест для функции displayStudents с несколькими студентами
+TEST(StudentDatabase, DisplayMultipleStudentsTest) {
+    std::vector<Student> database = {
+        {"Пивич", 5, "Питинг", 5.0},
+        {"Акакий", 999, "Ядерно-квантовая ржачка", 19.84}
+    };
+    
+    // Перехватывает вывод
+    std::stringstream output_stream;
+    std::streambuf* old_cout = std::cout.rdbuf();
+    std::cout.rdbuf(output_stream.rdbuf());
+    
+    displayStudents(database);
+    
+    // Восстанавливает std::cout
+    std::cout.rdbuf(old_cout);
+    
+    std::string output = output_stream.str();
+    EXPECT_TRUE(output.find("Пивич") != std::string::npos);
+    EXPECT_TRUE(output.find("Акакий") != std::string::npos);
+    EXPECT_TRUE(output.find("Питинг") != std::string::npos);
+    EXPECT_TRUE(output.find("Ядерно-квантовая ржачка") != std::string::npos);
+}
+
+// Тест для функции display_allgpa с пустой базой данных
+TEST(StudentDatabase, CalculateGPASumEmptyDatabaseTest) {
+    std::vector<Student> database;
+    
+    // Перехватывает вывод
+    std::stringstream output_stream;
+    std::streambuf* old_cout = std::cout.rdbuf();
+    std::cout.rdbuf(output_stream.rdbuf());
+    
+    display_allgpa(database);
+    
+    // Восстанавливает std::cout
+    std::cout.rdbuf(old_cout);
+    
+    std::string output = output_stream.str();
+    EXPECT_TRUE(output.find("0") != std::string::npos);
+}
+
 
 void runInteractiveMode() {
     std::vector<Student> database;
@@ -94,7 +154,26 @@ void runInteractiveMode() {
             case 1:
                 addStudent(database);
                 break;
-            case 2:
+            case 2:TEST(StudentDatabase, CalculateGPASumEmptyDatabaseTest) {
+    std::vector<Student> database;
+    
+    // Перехватываем вывод
+    std::stringstream output_stream;
+    std::streambuf* old_cout = std::cout.rdbuf();
+    std::cout.rdbuf(output_stream.rdbuf());
+    
+    display_allgpa(database);
+    
+    // Восстанавливаем std::cout
+    std::cout.rdbuf(old_cout);
+    
+    std::string output = output_stream.str();
+    EXPECT_TRUE(output.find("0") != std::string::npos);
+    
+    // Также тестируем вспомогательную функцию
+    double total = calculateTotalGPA(database);
+    EXPECT_NEAR(total, 0.0, 1e-6);
+}
                 displayStudents(database);
                 break;
             case 3:
