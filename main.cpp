@@ -154,26 +154,7 @@ void runInteractiveMode() {
             case 1:
                 addStudent(database);
                 break;
-            case 2:TEST(StudentDatabase, CalculateGPASumEmptyDatabaseTest) {
-    std::vector<Student> database;
-    
-    // Перехватываем вывод
-    std::stringstream output_stream;
-    std::streambuf* old_cout = std::cout.rdbuf();
-    std::cout.rdbuf(output_stream.rdbuf());
-    
-    display_allgpa(database);
-    
-    // Восстанавливаем std::cout
-    std::cout.rdbuf(old_cout);
-    
-    std::string output = output_stream.str();
-    EXPECT_TRUE(output.find("0") != std::string::npos);
-    
-    // Также тестируем вспомогательную функцию
-    double total = calculateTotalGPA(database);
-    EXPECT_NEAR(total, 0.0, 1e-6);
-}
+            case 2:
                 displayStudents(database);
                 break;
             case 3:
