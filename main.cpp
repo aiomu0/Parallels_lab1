@@ -1,4 +1,3 @@
-хд хаха ошибка чтобы проверить байжик
 #include <iostream>
 #include <vector>
 #include <string>
