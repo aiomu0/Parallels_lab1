@@ -1,2 +1,2 @@
 ![Static Badge](https://camo.githubusercontent.com/9b44949ca6728e0005bb9024fa33fac87f115efd03e36a6ddb6d99c77a4e3256/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f636f7665726167652d38302532352d79656c6c6f77677265656e)
-[![C/C++ CI](https://github.com/aiomu0/Parallels_lab1/actions/workflows/main.yml/badge.svg)](https://github.com/aiomu0/Parallels_lab1/actions/workflows/main.yml)
+[![Test](https://github.com/aiomu0/Parallels_lab1/actions/workflows/main.yml/badge.svg)](https://github.com/aiomu0/Parallels_lab1/actions/workflows/main.yml)
