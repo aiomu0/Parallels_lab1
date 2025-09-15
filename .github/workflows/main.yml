@@ -1,4 +1,5 @@
 name: C/C++ CI
+
 on:
   push:
     branches: [ "main" ]
@@ -23,7 +24,7 @@ jobs:
         g++ -std=c++17 --coverage -o program.out main.cpp -lgtest -lgtest_main -pthread
         ./program.out --test
         gcovr --xml coverage.cobertura.xml
-
+        
     - name: Extract coverage percentage
       id: coverage
       run: |
@@ -39,13 +40,13 @@ jobs:
         
         echo "color=$COLOR" >> $GITHUB_OUTPUT
         echo "Coverage: $COVERAGE% (Color: $COLOR)"
-
+        
     - name: Update coverage badge in README
       uses: schneegans/dynamic-badges-action@v1.0.0
       with:
         auth: ${{ secrets.GIST_TOKEN }}
         gistID: ${{ secrets.GIST_ID }}
         filename: coverage.json
-        label: coverage
+        label: Test coverage
         message: ${{ steps.coverage.outputs.percentage }}%
         color: ${{ steps.coverage.outputs.color }}
