@@ -13,19 +13,47 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Install GoogleTest
+    - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y libgtest-dev cmake
+        sudo apt-get install -y build-essential libgtest-dev cmake gcovr build-essential
         cd /usr/src/gtest
         sudo cmake .
         sudo make
         sudo cp lib/*.a /usr/lib/
-    - name: Installation
-      run: sudo apt update && sudo apt install -y build-essential
-    
+        
     - name: Compile
       run: make all
+
+    - name: Calculate code coverage
+      run: |
+        g++ --coverage -g -O0 -fprofile-arcs -ftest-coverage \
+            -o program.out main.cpp -lgtest -lgtest_main -pthread
+        ./program.out --test
+        gcovr --xml coverage.cobertura.xml
+
+    - name: Code Coverage Summary
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: coverage.cobertura.xml
+        badge: true
+        format: markdown
+        output: both
+
+    - name: Get coverage percentage
+      run: |
+        COVERAGE=$(grep -o 'line-rate="[0-9.]*"' coverage.cobertura.xml | head -1 | grep -o '[0-9.]*' | awk '{print int($1*100)}')
+        echo "COVERAGE=${COVERAGE}%" >> $GITHUB_ENV
+
+    - name: Update coverage badge
+      uses: schneegans/dynamic-badges-action@v1.0.0
+      with:
+        auth: ${{ secrets.GIST_TOKEN }}
+        gistID: ${{ secrets.GIST_ID }}
+        filename: coverage.json
+        label: coverage
+        message: ${{ env.COVERAGE }}
+        color: green
     
     - name: Execute tests
       run: ./program.out --test
