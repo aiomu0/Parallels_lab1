@@ -40,7 +40,7 @@ jobs:
         echo "color=$COLOR" >> $GITHUB_OUTPUT
         echo "Coverage: $COVERAGE% (Color: $COLOR)"
 
-    - name: Update coverage badge
+    - name: Update coverage badge in README
       uses: schneegans/dynamic-badges-action@v1.0.0
       with:
         auth: ${{ secrets.GIST_TOKEN }}
