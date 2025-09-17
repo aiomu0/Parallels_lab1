@@ -44,7 +44,7 @@ void display_allgpa(const std::vector<Student>& database) {
     for (const Student& student : database) {
         gpa_summary += student.gpa;
     }
-    std::cout << "Суммарный средний балл всех студентов равен " << gpa_summary << "\n";
+    std::cout << "Сумма средних баллов всех студентов равна " << gpa_summary << "\n";
 }
 
 // Тест для функции addStudent
